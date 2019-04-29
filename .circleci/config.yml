@@ -2,8 +2,13 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1
-      - image: jrottenberg/ffmpeg
+      - image: circleci/python:3.6.4
     steps:
       - checkout
       - run: echo "A first hello"
+      - run:
+          name: Add apt repo for ffmpeg
+          command: |
+            sudo add-apt-repository ppa:jonathonf/ffmpeg-4
+            sudo apt-get update
+      - run: sudo apt-get install ffmpeg
