@@ -2,14 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8.0a3
+      - image: ubuntu:18.04
     steps:
       - checkout
       - run: echo "A first hello"
       - run:
           name: Add apt repo for ffmpeg
           command: |
-            sudo apt-get install software-properties-common
-            sudo add-apt-repository -y ppa:jonathonf/ffmpeg-4
             sudo apt-get update
-      - run: sudo apt-get install ffmpeg
+            sudo apt-get install ffmpeg
