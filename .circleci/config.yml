@@ -14,4 +14,5 @@ jobs:
       - run: ffmpeg -h
 
       - run: groupadd --gid 3434 circleci && useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci
-      - run: echo 'circleci ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-circleci && echo 'Defaults    env_keep += "noninteractive"' >> /etc/sudoers.d/env_keep
+      - run: echo "circleci ALL=NOPASSWD: ALL" >> /etc/sudoers.d/50-circleci
+      - run: echo "Defaults    env_keep += 'noninteractive'" >> /etc/sudoers.d/env_keep
