@@ -9,6 +9,6 @@ jobs:
       - run:
           name: Add apt repo for ffmpeg
           command: |
-            sudo apt-get update && apt-get upgrade -y
+            sudo apt-get update
             sudo apt-get install -y ffmpeg
       - run: ffmpeg -h
