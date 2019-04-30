@@ -13,7 +13,5 @@ jobs:
             sudo apt-get install -y ffmpeg
       - run: ffmpeg -h
 
-      - run: groupadd --gid 3434 circleci \
-  && useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci \
-  && echo 'circleci ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-circleci \
-  && echo 'Defaults    env_keep += "noninteractive"' >> /etc/sudoers.d/env_keep
+      - run: groupadd --gid 3434 circleci && useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci
+      - run: echo 'circleci ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-circleci && echo 'Defaults    env_keep += "noninteractive"' >> /etc/sudoers.d/env_keep
