@@ -9,11 +9,23 @@ jobs:
       - run: uname -a
       - run: cat /etc/issue
       # install ffmpeg
-      #- run: sudo sh -c 'echo "deb http://ppa.launchpad.net/jonathonf/ffmpeg-4/ubuntu bionic main" >> /etc/apt/sources.list'
-      - run: sudo apt-get install -y software-properties-common
-      - run: sudo add-apt-repository ppa:jonathonf/ffmpeg-4
       - run: sudo apt-get update
-      - run: sudo apt install gnupg
-      - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4AB0F789CBA31744CC7DA76A8CF63AD3F06FC659
-      - run: sudo apt-update
-      - run: sudo apt install ffmpeg && ffmpeg -version
+      # update cache of repo
+      - run: sudo apt-get install build-essential libmp3lame-dev libvorbis-dev libtheora-dev \
+             libspeex-dev yasm pkg-config libopenjpeg-dev libx264-dev libopenjp2-7-dev \
+             libspeex-dev libtheora-dev libvorbis-dev libx264-dev
+      # bunch of dependencies for compiling ffmpeg
+      - run: mkdir /tmp/deps && cd /tmp/deps && wget https://netcologne.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz && \
+             tar -zxvf lame-3.99.5.tar.gz && cd lame-3.99.5 && ./configure && make && sudo make install
+      # also one of deps, don't even have versions in official repos, so let's build it
+      # WhatThisCommandDoing? Create a directory in tmp, change to this folder, download deps, unpack it and install.
+      - run: mkdir /tmp/ffmpeg && cd /tmp/ffmpeg/ && wget http://ffmpeg.org/releases/ffmpeg-4.0.1.tar.gz && tar -zxvf ffmpeg-4.0.1.tar.gz && cd ffmpeg-4.0.1
+      # WhatThisCommandDoing? Create a directory in tmp, change to this folder, download ffmpegs sources and unpack it.
+      - run: ./configure --enable-gpl --enable-postproc --enable-swscale --enable-avfilter \
+             --enable-libmp3lame --enable-libvorbis --enable-libtheora --enable-libx264 --enable-libspeex \
+             --enable-shared --enable-pthreads --enable-nonfree --enable-libopenjpeg && \
+             make && sudo make install
+      # enable all modules for ffpmeg and configure package for building, make package and install it.
+      - run:  sudo /sbin/ldconfig
+      # update system information
+      - run: ffmpeg -version
