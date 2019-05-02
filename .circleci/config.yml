@@ -11,9 +11,9 @@ jobs:
       # install ffmpeg
       - run: sudo apt-get update
       # update cache of repo
-      - run: sudo apt-get install build-essential libmp3lame-dev libvorbis-dev libtheora-dev \
-             libspeex-dev yasm pkg-config libopenjpeg-dev libx264-dev libopenjp2-7-dev \
-             libspeex-dev libtheora-dev libvorbis-dev libx264-dev
+      - run: sudo apt-get install build-essential libmp3lame-dev libvorbis-dev libtheora-dev
+      - run: sudo apt-get install libspeex-dev yasm pkg-config libopenjpeg-dev libx264-dev libopenjp2-7-dev
+      - run: sudo apt-get install libspeex-dev libtheora-dev libvorbis-dev libx264-dev
       # bunch of dependencies for compiling ffmpeg
       - run: mkdir /tmp/deps && cd /tmp/deps && wget https://netcologne.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz && \
              tar -zxvf lame-3.99.5.tar.gz && cd lame-3.99.5 && ./configure && make && sudo make install
