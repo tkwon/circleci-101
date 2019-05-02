@@ -15,5 +15,5 @@ jobs:
 
       - run: sh -c 'groupadd --gid 3434 circleci'
       - run: sh -c 'useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci'
-      - run: sh -c 'echo "circleci ALL=NOPASSWD\: ALL" >> /etc/sudoers.d/50-circleci'
+      #- run: sh -c 'echo "circleci ALL=NOPASSWD: ALL" >> /etc/sudoers.d/50-circleci'
       - run: sh -c 'echo "Defaults    env_keep += 'noninteractive'" >> /etc/sudoers.d/env_keep'
