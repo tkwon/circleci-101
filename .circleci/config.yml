@@ -2,16 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8.0a3       
+      - image: circleci/python:3.6.4
     steps:
       - checkout
       - run: echo "A first hello"
-      - run:
-          name: Add apt repo for ffmpeg
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y ffmpeg
-      - run: ffmpeg -h
-
-      - run: groupadd --gid 3434 circleci && useradd --uid 3434 --gid circleci --shell /bin/bash --create-home circleci
-      - run: echo 'circleci ALL=NOPASSWD: ALL' >> /etc/sudoers.d/50-circleci && echo 'Defaults    env_keep += "noninteractive"' >> /etc/sudoers.d/env_keep
+      # install ffmpeg
+      - run: echo "deb http://ppa.launchpad.net/jonathonf/ffmpeg-4/ubuntu bionic main" >> /etc/apt/sources.list
+      - run: apt install gnupg
+      - run: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4AB0F789CBA31744CC7DA76A8CF63AD3F06FC659
+      - run: apt install ffmpeg && ffmpeg -version
