@@ -3,6 +3,10 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.8
+      - image: bitjourney/elasticsearch-ci
+        environment:
+          xpack.security.enabled: false
+          transport.host: localhost
     steps:
       - checkout
       - run: echo "A first hello"
