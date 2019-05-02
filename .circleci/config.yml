@@ -6,21 +6,6 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
-      - run: uname -a
-      - run: cat /etc/issue
-      # install ffmpeg
-      - run: sudo apt-get update
-      - run: sudo apt-get install libspeex-dev yasm libtheora-dev
-      # update cache of repo
-      - run: sudo apt-get install build-essential libmp3lame-dev libvorbis-dev pkg-config libx264-dev libopenjp2-7-dev libvorbis-dev libx264-dev
-      # bunch of dependencies for compiling ffmpeg
-      - run: mkdir /tmp/deps && cd /tmp/deps && wget https://netcologne.dl.sourceforge.net/project/lame/lame/3.99/lame-3.99.5.tar.gz && tar -zxvf lame-3.99.5.tar.gz && cd lame-3.99.5 && ./configure && make && sudo make install
-      # also one of deps, don't even have versions in official repos, so let's build it
-      # WhatThisCommandDoing? Create a directory in tmp, change to this folder, download deps, unpack it and install.
-      - run: mkdir /tmp/ffmpeg && cd /tmp/ffmpeg/ && wget http://ffmpeg.org/releases/ffmpeg-4.0.1.tar.gz && tar -zxvf ffmpeg-4.0.1.tar.gz && cd ffmpeg-4.0.1
-      # WhatThisCommandDoing? Create a directory in tmp, change to this folder, download ffmpegs sources and unpack it.
-      - run: /tmp/ffmpeg/ffmpeg-4.0.1/configure --enable-gpl --enable-postproc --enable-swscale --enable-avfilter --enable-libmp3lame --enable-libvorbis --enable-libtheora --enable-libx264 --enable-libspeex --enable-shared --enable-pthreads --enable-nonfree --enable-libopenjpeg && make && sudo make install
-      # enable all modules for ffpmeg and configure package for building, make package and install it.
-      - run:  sudo /sbin/ldconfig
-      # update system information
-      - run: ffmpeg -version
+      # pipenv
+      - run: sudo pip install pipenv
+      - run: pipenv install -d
