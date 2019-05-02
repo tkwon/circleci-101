@@ -15,4 +15,5 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt install gnupg
       - run: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4AB0F789CBA31744CC7DA76A8CF63AD3F06FC659
+      - run: sudo apt-update
       - run: sudo apt install ffmpeg && ffmpeg -version
