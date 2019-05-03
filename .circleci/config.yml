@@ -3,13 +3,10 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6.8
-      - image: bitjourney/elasticsearch-ci
-        environment:
-          xpack.security.enabled: false
-          transport.host: localhost
     steps:
       - checkout
-      - run: echo "A first hello"
-      # pipenv
-      - run: sudo pip install pipenv
-      - run: pipenv install -d
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t ffmpeg .
